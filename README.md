@@ -9,7 +9,7 @@
     </a>
 
  <a href="https://github.com/hani0903">
-      <img src="https://avatars.githubusercontent.com/u/147942060?v=4" width="100">
+      <img src="https://avatars.githubusercontent.com/u/108499120?v=4" width="100">
     </a>
 
 ## 📝 규칙
