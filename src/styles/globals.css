@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+@theme {
+    --color-main-1: #ba00ff;
+    --color-main-2: #8100b3;
+
+    --color-gray-500: #a8a8a8;
+    --color-gray-800: #494949;
+
+    --color-main-gradient-from: #8100b3;
+    --color-main-gradient-to: #dd00ff;
+
+    --linear-main-gradient: linear-gradient(44.97deg, #8100b3 0%, #dd00ff 100%);
+
+    --font-pretendard: 'Pretendard', sans-serif;
+    --font-mbc: 'mbc1961-gulim', sans-serif;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('/assets/fonts/PretendardVariable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'mbc1961-gulim';
+    src: url('/assets/fonts/MBC-1961-gulim.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    font-family: var(--font-pretendard);
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
