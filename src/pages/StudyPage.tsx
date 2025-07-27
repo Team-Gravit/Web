@@ -21,7 +21,7 @@ function StudyPage() {
   return (
     <div className="w-full h-full flex flex-col">
       <Banner />
-      <div className="flex flex-col px-24">
+      <div className="flex flex-col px-24 bg-[#f2f2f2]">
         <h2 className="font-semibold text-[32px] py-6">학습</h2>
 
         <div className="grid grid-cols-4 gap-8 mb-10">
