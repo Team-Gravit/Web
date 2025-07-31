@@ -179,7 +179,7 @@ function LeaguePage() {
                 return (
                   <div
                     key={user.id}
-                    className="flex flex-row w-full h-16 items-center justify-between px-6 py-4 bg-white shadow-md rounded-xl mb-2"
+                    className="flex flex-row w-full h-16 items-center justify-between px-6 py-4 bg-white shadow-lg rounded-xl mb-2"
                   >
                     <div className="flex flex-row items-center gap-4">
                       <span className="text-xl font-semibold text-[#FFB608]">
