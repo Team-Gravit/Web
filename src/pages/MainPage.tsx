@@ -72,7 +72,7 @@ function MainPage() {
                             이어서 학습하기<h3 className="text-[32px]">자료구조</h3>
                         </p>
 
-                        <div className=" h-[16px] w-[50%] bg-white rounded-full my-[50px] overflow-hidden">
+                        <div className=" h-[16px] w-[50%] bg-white rounded-full my-[50px] ">
                             <div
                                 className=" h-full rounded-full text-right transition-all duration-300 bg-main-1"
                                 style={{ width: `${50}%` }}
