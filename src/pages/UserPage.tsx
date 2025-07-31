@@ -27,7 +27,7 @@ export default function UserPage() {
     <div className="w-full h-full flex flex-row">
       <div className="w-full lg:w-1/3 flex flex-col bg-white shadow-[0_4px_8px_rgba(0,0,0,0.25)] z-10 p-8">
         <section className="flex flex-col items-center">
-          <Profile2 />
+          <Profile2 className="text-[#9747FF]" />
           <h3 className="mt-4 text-3xl font-semibold text-[#222222]"> {userinfo.nickname} </h3>
           <span className="mt-1.5 text-lg text-[#222222]/80"> {userinfo.id} </span>
           <div className="flex flex-row mt-2 gap-4 text-[#222222]/80 text-lg">
@@ -80,7 +80,7 @@ export default function UserPage() {
             <h3 className="text-xl font-medium text-[#222222]/80"> 기본 정보 </h3>
             <div className="flex flex-row items-center justify-between py-3">
                 <div className="flex flex-row gap-10 items-center">
-                    <Profile2 className="w-24 h-24"/>
+                    <Profile2 className="w-24 h-24 text-[#9747FF]"/>
                     <div className="flex flex-col">
                         <span className="text-lg text-[#222222]/80"> {userinfo.id} </span>
                         <span className="text-[28px] font-semibold text-[#222222]"> {userinfo.nickname} </span>
