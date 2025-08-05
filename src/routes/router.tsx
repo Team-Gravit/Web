@@ -1,17 +1,30 @@
 // src/main.tsx
 import { createBrowserRouter } from 'react-router-dom';
 
-import Root from './Root';
 import MainPage from '../pages/MainPage';
-import UserPage from '../pages/UserPage';
+import StudyPage from '../pages/StudyPage';
+import LessonPage from '../pages/LessonPage';
+import WithHeaderLayout from '../layouts/WithHeaderLayout';
+import NoHeaderLayout from '../layouts/NoHeaderLayout';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Root />,
+        element: <WithHeaderLayout />,
         children: [
+            // 헤더 있는 페이지
             { index: true, element: <MainPage /> },
-            { path: 'user', element: <UserPage /> },
+            { path: 'study', element: <StudyPage /> },
+        ],
+    },
+    {
+        path: '/',
+        element: <NoHeaderLayout />,
+        children: [
+            {
+                path: 'lesson',
+                element: <LessonPage />,
+            },
         ],
     },
 ]);
