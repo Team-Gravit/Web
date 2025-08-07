@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { TIER_LABELS, type User } from '../types/user';
+import { type User } from '../types/user';
+import { TIER_LABELS } from '../types/tier';
 
 function useTierLabel(user?: User) {
     return useMemo(() => {
