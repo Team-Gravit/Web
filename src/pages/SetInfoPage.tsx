@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import LoginBg from '@/assets/images/login-bg.svg';
@@ -10,7 +11,7 @@ export default function SetInfoPage() {
   const colors = ['#D85050', '#4A90E2', '#7ED321', '#F5A623'];
   const [colorIndex, setColorIndex] = useState(0);
   const [nickname, setNickname] = useState('');
-  const [isDuplicate, setIsDuplicate] = useState(false);
+  const [isLimit, setIsLimit] = useState(false);
   const [checking, setChecking] = useState(false); 
   const navigate = useNavigate();
 
@@ -23,24 +24,22 @@ export default function SetInfoPage() {
   };
 
   useEffect(() => {
-    if (!nickname.trim()) {
-      setIsDuplicate(false);
+    const trimmed = nickname.trim();
+    const nicknameRegex = /^[가-힣a-zA-Z0-9]{2,8}$/;
+
+    if (!trimmed) {
+      setIsLimit(false);
       setChecking(false);
       return;
     }
 
     setChecking(true);
     const handler = setTimeout(() => {
-      const duplicatedNicknames = ['test', 'admin', 'guest'];
-      const isDup = duplicatedNicknames.includes(nickname.trim().toLowerCase());
-
-      setIsDuplicate(isDup);
+      setIsLimit(!nicknameRegex.test(trimmed));
       setChecking(false);
     }, 300);
 
-    return () => {
-      clearTimeout(handler);
-    };
+    return () => clearTimeout(handler);
   }, [nickname]);
 
   const handleSubmit = () => {
@@ -48,16 +47,15 @@ export default function SetInfoPage() {
       alert('닉네임을 입력해주세요.');
       return;
     }
-    if (isDuplicate) {
-      alert('이미 사용중인 닉네임입니다.');
+    if (isLimit) {
+      alert('닉네임은 2자 이상 8자 이하이며, 공백 및 특수문자는 사용할 수 없어요.');
       return;    
     }
-    
     navigate('/success');
   };
 
   return (
-     <div
+    <div
       className="w-screen h-full flex flex-col items-center py-30 lg:py-10 gap-4.5"
       style={{
         backgroundImage: `url(${LoginBg})`,
@@ -89,27 +87,27 @@ export default function SetInfoPage() {
             onChange={(e) => setNickname(e.target.value)}
             placeholder="닉네임"
             className={`w-full px-4 py-2 rounded-lg text-[#4C4C4C] text-lg border ${
-                isDuplicate
+              isLimit
                 ? 'border-[#FF0000]'
                 : nickname.trim()
                 ? 'border-[#0033FF]'
                 : 'border-[#C3C3C3]'
             } focus:outline-none`}
           />
-         <div className="min-h-[30px]">
-            {!checking && nickname.trim() && !isDuplicate && (
+          <div className="min-h-[30px]">
+            {!checking && nickname.trim() && !isLimit && (
               <p className="text-xs text-[#868686]">사용 가능한 닉네임이에요.</p>
             )}
-            {!checking && isDuplicate && (
-              <p className="text-xs text-[#868686]">이미 사용중인 닉네임이에요.</p>
+            {!checking && isLimit && (
+              <p className="text-xs text-[#FF0000]">닉네임은 2~8자, 공백 및 특수문자 없이 입력해주세요.</p>
             )}
           </div>
 
-         <button
+          <button
             onClick={handleSubmit}
-            disabled={!nickname.trim() || isDuplicate || checking}
+            disabled={!nickname.trim() || isLimit || checking}
             className={`w-full h-14 text-white py-2 rounded-xl text-lg font-semibold transition
-              ${!nickname.trim() || isDuplicate || checking ? 'bg-[#8100B3] opacity-50' : 'bg-[#8100B3]'}`}
+              ${!nickname.trim() || isLimit || checking ? 'bg-[#8100B3] opacity-50' : 'bg-[#8100B3]'}`}
           >
             다음
           </button>
