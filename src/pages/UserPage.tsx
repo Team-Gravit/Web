@@ -6,15 +6,16 @@ import GoldBadge from '@/assets/icons/gold-badge.svg?react';
 import CopperBadge from '@/assets/icons/copper-badge.svg?react';
 
 type UserInfo = {
-  id: string,
+  handle: string,
   nickname: string,
+  profileImgNumber: number,
   followers: number,
   following: number,
   badge: number,
   version: string,
 }
 
-const userinfo: UserInfo = { id: '@in234jj', nickname: '땅콩', followers: 4, following: 4, badge: 4, version: '6.4.0' }
+const userinfo: UserInfo = { handle: '@in234jj', nickname: '땅콩', profileImgNumber: 1, followers: 4, following: 4, badge: 4, version: '6.4.0' }
 
 export default function UserPage() {
 
@@ -29,7 +30,7 @@ export default function UserPage() {
         <section className="flex flex-col items-center">
           <Profile2 className="text-[#9747FF]" />
           <h3 className="mt-4 text-3xl font-semibold text-[#222222]"> {userinfo.nickname} </h3>
-          <span className="mt-1.5 text-lg text-[#222222]/80"> {userinfo.id} </span>
+          <span className="mt-1.5 text-lg text-[#222222]/80"> {userinfo.handle} </span>
           <div className="flex flex-row mt-2 gap-4 text-[#222222]/80 text-lg">
             <div className="w-[104px] h-9 flex flex-row items-center justify-center border border-[#000000]/10 rounded-lg gap-2">
               팔로워
@@ -82,7 +83,7 @@ export default function UserPage() {
                 <div className="flex flex-row gap-10 items-center">
                     <Profile2 className="w-24 h-24 text-[#9747FF]"/>
                     <div className="flex flex-col">
-                        <span className="text-lg text-[#222222]/80"> {userinfo.id} </span>
+                        <span className="text-lg text-[#222222]/80"> {userinfo.handle} </span>
                         <span className="text-[28px] font-semibold text-[#222222]"> {userinfo.nickname} </span>
                         <div className="flex flex-row mt-2 gap-2 text-[#222222]/80 text-lg">
                             <div className="lg:w-[104px] w-[90px] h-9 flex flex-row items-center justify-center border border-[#000000]/10 rounded-lg gap-2">
