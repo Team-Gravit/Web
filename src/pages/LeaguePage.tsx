@@ -5,7 +5,6 @@ import Cup from '@/assets/icons/cup.svg?react';
 import Xp from '@/assets/icons/xp.svg?react';
 import TierCircle from '@/assets/icons/tier-circle.svg?react';
 import Profile from '@/assets/images/profile.svg';
-import TierIcon from '@/assets/icons/tier-icon.svg?react';
 import ProfileSub from '@/assets/icons/profile-sub.svg?react';
 
 type LevelStatusProps = {
@@ -45,44 +44,21 @@ const tiers: Tier[] = [
   { id: 4, name: '마스터', icon: TierCircle, exp: 40 },
 ];
 
-type Friend = {
-  id: number;
-  nickname: string;
-  level: number;
-  tierIcon: React.FC<React.SVGProps<SVGSVGElement>>;
-  profileIcon: string;
-};
-
-const friends: Friend[] = [
-  { id: 1, nickname: "친구1", level: 10, tierIcon: TierCircle, profileIcon: Profile },
-  { id: 2, nickname: "친구2", level: 12, tierIcon: TierCircle, profileIcon: Profile },
-  { id: 3, nickname: "친구3", level: 8, tierIcon: TierCircle, profileIcon: Profile },
-  { id: 4, nickname: "친구4", level: 15, tierIcon: TierCircle, profileIcon: Profile },
-  { id: 5, nickname: "친구5", level: 20, tierIcon: TierCircle, profileIcon: Profile },
-  { id: 6, nickname: "친구6", level: 9, tierIcon: TierCircle, profileIcon: Profile },
-  { id: 7, nickname: "친구7", level: 15, tierIcon: TierCircle, profileIcon: Profile },
-  { id: 8, nickname: "친구8", level: 20, tierIcon: TierCircle, profileIcon: Profile },
-];
-
-const maxVisibleFriends = 3;
-const visibleFriends = friends.slice(0, maxVisibleFriends);
-const remainingCount = friends.length - maxVisibleFriends;
-
 type User = {
   id: number;
   nickname: string;
   level: number;
-  tierIcon: React.FC<React.SVGProps<SVGSVGElement>>;
+  lp: number;
   profileIcon: string;
 };
 
 const users: User[] = [
-  { id: 1, nickname: "사용자 1", level: 10, tierIcon: TierIcon, profileIcon: Profile },
-  { id: 2, nickname: "사용자 2", level: 12, tierIcon: TierIcon, profileIcon: Profile },
-  { id: 3, nickname: "사용자 3", level: 8, tierIcon: TierIcon, profileIcon: Profile },
-  { id: 4, nickname: "사용자 4", level: 15, tierIcon: TierIcon, profileIcon: Profile },
-  { id: 5, nickname: "사용자 5", level: 200, tierIcon: TierIcon, profileIcon: Profile },
-  { id: 6, nickname: "사용자 6", level: 8, tierIcon: TierIcon, profileIcon: Profile },
+  { id: 1, nickname: "사용자 1", level: 10, lp: 7897, profileIcon: Profile },
+  { id: 2, nickname: "사용자 2", level: 12, lp: 7897,  profileIcon: Profile },
+  { id: 3, nickname: "사용자 3", level: 8, lp: 7897, profileIcon: Profile },
+  { id: 4, nickname: "사용자 4", level: 15, lp: 7897, profileIcon: Profile },
+  { id: 5, nickname: "사용자 5", level: 200, lp: 7897, profileIcon: Profile },
+  { id: 6, nickname: "사용자 6", level: 8, lp: 7897, profileIcon: Profile },
 ];
 
 function LeaguePage() {
@@ -148,59 +124,37 @@ function LeaguePage() {
         </section>
 
         <section className="lg:w-1/2 w-full  flex flex-col items-center gap-8 lg:pl-6 lg:pr-32 px-5 lg:px-0">
-          <button className="flex flex-row w-full h-16 items-center justify-between p-4 bg-white shadow-md rounded-lg font-medium mb-6 text-[#222222]">
-            친구 리그 보기
-            <span className="flex flex-row items-center text-[#6D6D6D]">
-              {visibleFriends.map((friend, index) => (
-                <img
-                  key={friend.id}
-                  src={friend.profileIcon}
-                  className={`w-10 h-10 rounded-full border-2 border-white object-cover ${
-                    index !== 0 ? '-ml-3' : ''
-                  }`}
-                />
-              ))}
-
-              {remainingCount > 0 && (
-                <span className="-ml-3 w-10 h-10 flex items-center justify-center rounded-full bg-[#D9D9D9] border-2 border-white">
-                  +{remainingCount}
-                </span>
-              )}
-            </span>
-          </button>
-
           <div className="flex flex-col w-full">
             {[...users]
               .sort((a, b) => b.level - a.level)
               .map((user, index) => {
-                const TierIcon = user.tierIcon;
-                const rank = index + 1;
+                const rank = String(index + 1).padStart(3, '0'); 
 
                 return (
                   <div
                     key={user.id}
-                    className="flex flex-row w-full h-16 items-center justify-between px-6 py-4 bg-white shadow-lg rounded-xl mb-2"
+                    className="flex flex-row w-full h-16 items-stretch justify-between shadow-lg rounded-xl mb-2 overflow-hidden"
                   >
-                    <div className="flex flex-row items-center gap-4">
-                      <span className="text-xl font-semibold text-[#FFB608]">
-                        {rank}
-                      </span>
+                    <div className="flex flex-row items-center gap-6 px-6 py-4 bg-white w-3/4">
+                      <span className="text-xl font-semibold text-[#930000]">{rank}</span>
                       <div className="relative w-10 h-10">
                         <img
-                            src={user.profileIcon}
-                            className="w-10 h-10 rounded-full object-cover"
+                          src={user.profileIcon}
+                          className="w-10 h-10 rounded-full object-cover"
                         />
                         <ProfileSub className="absolute top-[-7.5px] left-[-7.5px] w-14 h-14" />
                       </div>
                       <span className="text-[22px] font-bold">{user.nickname}</span>
                     </div>
-
-                    <div className="flex flex-row items-center justify-start gap-3 min-w-[100px]">
-                      <TierIcon className="w-9 h-9" />
-                      <span className="flex flex-row text-[#4C4C4C] font-medium gap-1.5">
-                        LV
-                        <span className="text-[#FFB608]">{user.level}</span>
-                      </span>
+                    <div className="flex flex-col justify-center bg-[#FEF2FF] w-1/4 px-4 py-2 gap-1">
+                      <div className="flex flex-row items-center justify-start gap-1.5 pl-6">
+                        <span className="text-[#4C4C4C] font-medium w-6">LV</span>
+                        <span className="text-[#FFB608] font-semibold">{user.level}</span>
+                      </div>
+                      <div className="flex flex-row items-center justify-start gap-1.5 pl-6">
+                        <span className="text-[#4C4C4C] font-medium w-6">LP</span>
+                        <span className="text-[#FFB608] font-semibold">{user.lp}</span>
+                      </div>
                     </div>
                   </div>
                 );
