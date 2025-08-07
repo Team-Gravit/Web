@@ -7,15 +7,31 @@ import { Link } from 'react-router-dom';
 import Rocket from '@/assets/icons/rocket.svg?react';
 import Fire from '@/assets/icons/fire.svg?react';
 import StudyBg from '@/assets/images/study-bg.jpg';
+import { type User } from '../types/user';
+import useTierLabel from '../hooks/useTierLabel';
+import type { Chapter } from '../types/chapter';
+import { PLANET_IMG_MAP } from '../constants/planet-image';
+import SubjectProgress from '../components/@common/subject-progress/SubjectProgress';
 
 function MainPage() {
+    const user: User = { id: 0, profileImgNumber: 1, nickname: '방귀요정 뿡뿡이', tier: 'diamond', level: 12 };
+
+    const recentLearningChapter: Chapter = {
+        id: 1,
+        name: '알고리즘',
+        totalUnits: 10,
+        completedUnits: 5,
+        description: '',
+    };
+
     return (
         <div className="h-full w-full flex flex-col">
             <Banner />
             <div className="flex-grow p-20 bg-[#f2f2f2] flex flex-row gap-6">
                 <section className=" w-1/2 flex flex-col gap-8">
                     <h2 className="font-semibold text-[32px]">
-                        현재 땅콩님의 티어는 <strong className="text-[#ff9500]">브론즈</strong>입니다!
+                        현재 {user.nickname}님의 티어는 <strong className="text-[#ff9500]">{useTierLabel(user)}</strong>
+                        입니다!
                     </h2>
                     <LevelStatus tier="브론즈" value={789} max={10} level={12} />
 
@@ -26,7 +42,7 @@ function MainPage() {
                                 <hr className="text-gray-500 border-dashed border-2" />
                                 <ul className="flex list-disc pl-5 leading-none">
                                     <li className="text-2xl font-medium">
-                                        자료구조 챕터3 완료
+                                        {recentLearningChapter.name} 챕터{recentLearningChapter.completedUnits} 완료
                                         <small className="block text-base text-gray-800 font-normal mt-1">
                                             완료 시 150XP
                                         </small>
@@ -62,22 +78,26 @@ function MainPage() {
                         </aside>
                     </div>
                 </section>
-                <section className=" w-1/2 h-full flex flex-col gap-8">
+                <section className=" w-1/2 h-full flex flex-col gap-8 cursor-pointer">
                     <h2 className="font-semibold text-[32px]">최근 진행한 학습</h2>
                     <article
-                        className="flex flex-col h-full w-full rounded-[5px] bg-cover bg-center justify-start p-10"
+                        className="relative flex flex-col h-full w-full rounded-2xl bg-cover bg-center justify-start p-10 overflow-hidden"
                         style={{ backgroundImage: `url(${StudyBg})` }}
                     >
                         <p className="font-mbc font-semibold text-[18px] text-white">
-                            이어서 학습하기<h3 className="text-[32px]">자료구조</h3>
+                            이어서 학습하기<h3 className="text-[32px]">{recentLearningChapter.name}</h3>
                         </p>
 
-                        <div className=" h-[16px] w-[50%] bg-white rounded-full my-[50px] ">
-                            <div
-                                className=" h-full rounded-full text-right transition-all duration-300 bg-main-1"
-                                style={{ width: `${50}%` }}
-                            ></div>
+                        <div className="w-[50%] mt-3">
+                            <SubjectProgress
+                                current={recentLearningChapter.completedUnits}
+                                total={recentLearningChapter.totalUnits}
+                            />
                         </div>
+                        <img
+                            src={PLANET_IMG_MAP[recentLearningChapter.id]}
+                            className="absolute w-[60%] top-1/3 transform right-0 translate-x-3 "
+                        />
                     </article>
                 </section>
             </div>
@@ -94,7 +114,7 @@ type LevelStatusProps = {
 
 const LevelStatus = ({ level, value, max, tier }: LevelStatusProps) => {
     return (
-        <article className="w-full h-[44px] flex flex-row items-center gap-2">
+        <article className="w-full h-[44px] flex flex-row items-center gap-2 ">
             <div className="flex flex-row items-center justify-center gap-0.5 text-xl font-bold px-1.5 py-1 bg-white rounded-full text-main-2">
                 <Cup className="bg-main-1 rounded-full w-5 h-5" style={{ padding: '2.2px' }} />
                 {tier}
