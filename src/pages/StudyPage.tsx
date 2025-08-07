@@ -40,7 +40,7 @@ function StudyPage() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-10">
                     {chapters.map((chapter) => (
-                        <ChapterCard chapter={chapter} />
+                        <ChapterCard chapter={chapter} key={chapter.id} />
                     ))}
                 </div>
             </div>
