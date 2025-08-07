@@ -11,7 +11,7 @@ import { type User } from '../types/user';
 import useTierLabel from '../hooks/useTierLabel';
 import type { Chapter } from '../types/chapter';
 import { PLANET_IMG_MAP } from '../constants/planet-image';
-import SubjectProgress from '../components/@common/subject-progress/SubjectProgress';
+import ChapterProgressBar from '../components/@common/chapter-progress/ChapterProgressBar';
 
 function MainPage() {
     const user: User = { id: 0, profileImgNumber: 1, nickname: '방귀요정 뿡뿡이', tier: 'diamond', level: 12 };
@@ -89,7 +89,7 @@ function MainPage() {
                         </p>
 
                         <div className="w-[50%] mt-3">
-                            <SubjectProgress
+                            <ChapterProgressBar
                                 current={recentLearningChapter.completedUnits}
                                 total={recentLearningChapter.totalUnits}
                             />
