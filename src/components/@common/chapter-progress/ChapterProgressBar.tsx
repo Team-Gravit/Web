@@ -1,10 +1,10 @@
-type SubjectProgressProps = {
+type ChapterProgressBarProps = {
     current: number;
     total: number;
 };
 
-const ChapterProgressBar = ({ current, total }: SubjectProgressProps) => {
-    const percentage = Math.min((current / total) * 100, 100);
+const ChapterProgressBar = ({ current, total }: ChapterProgressBarProps) => {
+    const percentage = total > 0 ? Math.min((current / total) * 100, 100) : 0;
 
     return (
         <div className="w-full">
