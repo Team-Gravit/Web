@@ -19,7 +19,7 @@ function ChapterCard({ chapter }: { chapter: Chapter }) {
 
                 <InfoCircle className="relative ml-auto mt-0.5 w-7 h-7 lg:mb-0 mb-32" />
             </div>
-            <ChapterProgressBar total={chapter.completedUnits} current={chapter.totalUnits} />
+            <ChapterProgressBar total={chapter.totalUnits} current={chapter.completedUnits} />
             <img
                 src={PLANET_IMG_MAP[chapter.id]}
                 className="absolute w-[60%] h-auto lg:w-45 top-1/3 transform right-0 translate-x-3 lg:top-1/2 lg:translate-x-7"
