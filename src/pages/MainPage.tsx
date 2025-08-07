@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from '../components/@common/banner/Banner';
 import ProgressBar from '../components/@common/progress-bar/ProgressBar';
-import Cup from '@/assets/icons/cup.svg?react';
+import Cup from '..//assets/icons/cup.svg?react';
 import Xp from '@/assets/icons/xp.svg?react';
 import { Link } from 'react-router-dom';
 import Rocket from '@/assets/icons/rocket.svg?react';
