@@ -1,35 +1,9 @@
 import { useRef, useState } from 'react';
 import Banner from '../components/@common/banner/Banner';
-import Cup from '@/assets/icons/cup.svg?react';
-import Xp from '@/assets/icons/xp.svg?react';
 import TierCircle from '@/assets/icons/tier-circle.svg?react';
 import Profile from '@/assets/images/profile.svg';
 import ProfileSub from '@/assets/icons/profile-sub.svg?react';
-import LevelProgressBar from '../components/@common/level-info/LevelProgressBar';
 import UserStats from '../components/@common/level-info/UserStats';
-
-type LevelStatusProps = {
-    tier: string;
-    value: number;
-    level: number;
-    max: number;
-};
-
-const LevelStatus = ({ level, value, max, tier }: LevelStatusProps) => {
-    return (
-        <article className="w-full h-[44px] flex flex-row items-center gap-2">
-            <div className="flex flex-row items-center justify-center gap-0.5 text-xl font-bold px-1.5 py-1 bg-white rounded-full text-main-2">
-                <Cup className="bg-main-1 rounded-full w-5 h-5" style={{ padding: '2.2px' }} />
-                {tier}
-            </div>
-            <div className="flex flex-row items-center justify-center gap-0.5 text-xl font-bold px-1.5 py-1 bg-white rounded-full text-main-2">
-                <Xp className="bg-main-1 rounded-full w-5 h-5" style={{ padding: '2.2px' }} />
-                {tier}
-            </div>
-            <LevelProgressBar completed={74} level={13} />
-        </article>
-    );
-};
 
 type Tier = {
     id: number;
