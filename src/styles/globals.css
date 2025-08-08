@@ -9,13 +9,14 @@
 
     --color-main-gradient-from: #8100b3;
     --color-main-gradient-to: #dd00ff;
-
     --linear-main-gradient: linear-gradient(44.97deg, #8100b3 0%, #dd00ff 100%);
 
     --shadow-card: -4px 4px 4px 0px #0000001a;
 
     --font-pretendard: 'Pretendard', sans-serif;
     --font-mbc: 'MBC1961GulimM', sans-serif;
+
+    --header-height: 74px;
 }
 
 @font-face {
