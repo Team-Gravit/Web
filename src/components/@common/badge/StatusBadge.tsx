@@ -4,7 +4,7 @@ type StatusBadgeProps = {
     icon: React.ComponentType<{ className?: string }>;
     label: string;
     className?: string;
-} & React.HTMLAttributes<HTMLSpanElement>;
+} & React.HTMLAttributes<HTMLDivElement>;
 
 function StatusBadge({ icon: Icon, label, className = '', ...props }: StatusBadgeProps) {
     return (
