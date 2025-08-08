@@ -8,13 +8,16 @@ type StatusBadgeProps = {
 
 function StatusBadge({ icon: Icon, label, className = '', ...props }: StatusBadgeProps) {
     return (
-        <span
-            className={`flex flex-row items-center justify-center gap-0.5 text-xl font-bold px-1.5 py-1 bg-white rounded-full text-main-2 ${className}`}
+        <div
+            className={`flex flex-row items-center justify-center gap-0.5 text-xl font-bold px-1.5 py-[3px] bg-white rounded-full text-main-2 ${className}`}
             {...props}
         >
-            <Icon className="bg-main-1 rounded-full w-5 h-5 p-0.5" />
+            <div className="bg-main-1 rounded-full relative w-6 h-6">
+                <Icon className="absolute w-5 h-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+            </div>
+
             <span>{label}</span>
-        </span>
+        </div>
     );
 }
 
