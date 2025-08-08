@@ -1,7 +1,5 @@
 import Banner from '../components/@common/banner/Banner';
-import LevelProgressBar from '../components/@common/level-progress/LevelProgressBar';
-import Cup from '..//assets/icons/cup.svg?react';
-import Xp from '@/assets/icons/xp.svg?react';
+
 import { Link } from 'react-router-dom';
 import Rocket from '@/assets/icons/rocket.svg?react';
 import Fire from '@/assets/icons/fire.svg?react';
@@ -11,7 +9,7 @@ import useTierLabel from '../hooks/useTierLabel';
 import type { Chapter } from '../types/chapter';
 import { PLANET_IMG_MAP } from '../constants/planet-image';
 import ChapterProgressBar from '../components/@common/chapter-progress/ChapterProgressBar';
-import StatusBadge from '../components/@common/badge/StatusBadge';
+import UserStats from '../components/@common/level-info/UserStats';
 
 function MainPage() {
     const user: User = { id: 0, profileImgNumber: 1, nickname: '방귀요정 뿡뿡이', tier: 'diamond', level: 12 };
@@ -33,7 +31,7 @@ function MainPage() {
                         현재 {user.nickname}님의 티어는 <strong className="text-[#ff9500]">{useTierLabel(user)}</strong>
                         입니다!
                     </h2>
-                    <PlayerStats tier="브론즈" value={789} level={12} />
+                    <UserStats tier="브론즈" value={789} level={12} />
 
                     <div className="flex flex-row gap-4">
                         <article className=" h-full w-2/3 min-h-[334px] flex flex-col justify-between p-4 bg-white rounded-2xl">
@@ -106,22 +104,5 @@ function MainPage() {
         </div>
     );
 }
-
-type PlayerStatsProps = {
-    tier: string;
-    value: number;
-    level: number;
-};
-
-const PlayerStats = ({ level, value, tier }: PlayerStatsProps) => {
-    return (
-        <section className="w-full flex flex-row items-center gap-2 min-h-[30px]">
-            <StatusBadge icon={Cup} label={tier} />
-            <StatusBadge icon={Xp} label={`${value} XP`} />
-
-            <LevelProgressBar completed={74} level={level} />
-        </section>
-    );
-};
 
 export default MainPage;
