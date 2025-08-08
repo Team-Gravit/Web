@@ -78,17 +78,18 @@ function MainPage() {
                         </aside>
                     </div>
                 </section>
-                <section className=" w-1/2 h-full flex flex-col gap-8 cursor-pointer">
-                    <h2 className="font-semibold text-[32px]">최근 진행한 학습</h2>
+                <section className=" w-1/2  flex flex-col gap-8 ">
+                    <h2 className="font-semibold text-[32px] shrink-0">최근 진행한 학습</h2>
                     <article
-                        className="relative flex flex-col h-full w-full rounded-2xl bg-cover bg-center justify-start p-10 overflow-hidden"
+                        className="cursor-pointer relative flex flex-col flex-1 w-full rounded-2xl bg-cover bg-center justify-start p-10 overflow-hidden"
                         style={{ backgroundImage: `url(${StudyBg})` }}
                     >
-                        <p className="font-mbc font-semibold text-[18px] text-white">
-                            이어서 학습하기<h3 className="text-[32px]">{recentLearningChapter.name}</h3>
-                        </p>
+                        <div className="font-mbc font-semibold text-[18px] text-white">
+                            <p className="mb-0.5">이어서 학습하기</p>
+                            <h3 className="text-[32px]">{recentLearningChapter.name}</h3>
+                        </div>
 
-                        <div className="w-[50%] mt-3">
+                        <div className="w-1/2 mt-3">
                             <ChapterProgressBar
                                 current={recentLearningChapter.completedUnits}
                                 total={recentLearningChapter.totalUnits}
@@ -96,7 +97,8 @@ function MainPage() {
                         </div>
                         <img
                             src={PLANET_IMG_MAP[recentLearningChapter.id]}
-                            className="absolute w-[60%] top-1/3 transform right-0 translate-x-3 "
+                            className="absolute w-3/5 top-1/3 transform right-0 translate-x-3 "
+                            alt={`${recentLearningChapter.name} 행성`}
                         />
                     </article>
                 </section>
