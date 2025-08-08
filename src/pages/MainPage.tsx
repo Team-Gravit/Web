@@ -1,6 +1,5 @@
-import React from 'react';
 import Banner from '../components/@common/banner/Banner';
-import ProgressBar from '../components/@common/progress-bar/ProgressBar';
+import LevelProgressBar from '../components/@common/level-progress/LevelProgressBar';
 import Cup from '..//assets/icons/cup.svg?react';
 import Xp from '@/assets/icons/xp.svg?react';
 import { Link } from 'react-router-dom';
@@ -12,6 +11,7 @@ import useTierLabel from '../hooks/useTierLabel';
 import type { Chapter } from '../types/chapter';
 import { PLANET_IMG_MAP } from '../constants/planet-image';
 import ChapterProgressBar from '../components/@common/chapter-progress/ChapterProgressBar';
+import StatusBadge from '../components/@common/badge/StatusBadge';
 
 function MainPage() {
     const user: User = { id: 0, profileImgNumber: 1, nickname: '방귀요정 뿡뿡이', tier: 'diamond', level: 12 };
@@ -33,7 +33,7 @@ function MainPage() {
                         현재 {user.nickname}님의 티어는 <strong className="text-[#ff9500]">{useTierLabel(user)}</strong>
                         입니다!
                     </h2>
-                    <LevelStatus tier="브론즈" value={789} max={10} level={12} />
+                    <PlayerStats tier="브론즈" value={789} level={12} />
 
                     <div className="flex flex-row gap-4">
                         <article className=" h-full w-2/3 min-h-[334px] flex flex-col justify-between p-4 bg-white rounded-2xl">
@@ -107,26 +107,20 @@ function MainPage() {
     );
 }
 
-type LevelStatusProps = {
+type PlayerStatsProps = {
     tier: string;
     value: number;
     level: number;
-    max: number;
 };
 
-const LevelStatus = ({ level, value, max, tier }: LevelStatusProps) => {
+const PlayerStats = ({ level, value, tier }: PlayerStatsProps) => {
     return (
-        <article className="w-full h-[44px] flex flex-row items-center gap-2 ">
-            <div className="flex flex-row items-center justify-center gap-0.5 text-xl font-bold px-1.5 py-1 bg-white rounded-full text-main-2">
-                <Cup className="bg-main-1 rounded-full w-5 h-5" style={{ padding: '2.2px' }} />
-                {tier}
-            </div>
-            <div className="flex flex-row items-center justify-center gap-0.5 text-xl font-bold px-1.5 py-1 bg-white rounded-full text-main-2">
-                <Xp className="bg-main-1 rounded-full w-5 h-5" style={{ padding: '2.2px' }} />
-                {tier}
-            </div>
-            <ProgressBar completed={74} level={13} />
-        </article>
+        <section className="w-full flex flex-row items-center gap-2 min-h-[30px]">
+            <StatusBadge icon={Cup} label={tier} />
+            <StatusBadge icon={Xp} label={`${value} XP`} />
+
+            <LevelProgressBar completed={74} level={level} />
+        </section>
     );
 };
 
