@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import LoginBg from '@/assets/images/login-bg.svg';
 import Logo from '@/assets/logo/white-logo.svg?react';
 import Profile3 from '@/assets/images/profile3.svg?react';
@@ -7,19 +6,23 @@ import 카카오 from '@/assets/images/카카오.svg';
 import 네이버 from '@/assets/images/네이버.svg';
 
 export default function LoginPage() {
-  const navigate = useNavigate();
+  const redirectToLogin = async (provider: 'google' | 'kakao' | 'naver') => {
+    try {
+      const response = await fetch(`https://grav-it.inuappcenter.kr/api/v1/oauth/login-url/${provider}`);
+      const data = await response.json();
 
-  const handleKakao = () => {
-        navigate('/set-info');
-  }
+      if (!data.loginUrl) {
+        throw new Error('로그인 URL을 받아오지 못했습니다.');
+      }
 
-  const handleNaver = () => {
-        navigate('/set-info');
-  }
+      localStorage.setItem('returnTo', window.location.pathname);
 
-  const handleGoogle = () => {
-        navigate('/set-info');
-  }
+      window.location.href = data.loginUrl;
+    } catch (error) {
+      console.error(`${provider} 로그인 처리 중 오류:`, error);
+      alert('로그인 요청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  };
 
   return (
     <div
@@ -35,10 +38,10 @@ export default function LoginPage() {
         그래빗과 함께 CS 지식을 마스터해요!
       </h2>
       <section className="flex flex-col w-[480px] lg:w-[560px] h-[500px] rounded-xl bg-white items-center py-6 px-10 gap-6">
-        <Profile3 className="w-18 h-18"/>
+        <Profile3 className="w-18 h-18" />
         <div className="flex flex-col leading-tight">
           <h3 className="font-bold text-[32px] text-center">
-            교욱행성에 어서 오세요.
+            교육행성에 어서 오세요.
             <br />
             Gravit!
           </h3>
@@ -48,24 +51,15 @@ export default function LoginPage() {
         </div>
         <div className="w-full border-[0.5px] border-dashed border-[#C3C3C3]" />
         <div className="flex flex-col items-center w-full h-40 gap-1.5">
-            <button id='google' className="flex w-full" onClick={handleGoogle}>
-                <img
-                    className="flex w-full h-full"
-                    src={구글}
-                />
-            </button>
-            <button id='kakao' className="flex w-full" onClick={handleKakao}>
-                <img
-                className="flex w-full h-full"
-                src={카카오}
-                />
-            </button>
-            <button id='naver' className="flex w-full" onClick={handleNaver}>
-                <img
-                    className="flex w-full h-full"
-                    src={네이버}
-                />
-            </button>
+          <button id="google" className="flex w-full" onClick={() => redirectToLogin('google')}>
+            <img className="flex w-full h-full" src={구글} alt="Google 로그인" />
+          </button>
+          <button id="kakao" className="flex w-full" onClick={() => redirectToLogin('kakao')}>
+            <img className="flex w-full h-full" src={카카오} alt="Kakao 로그인" />
+          </button>
+          <button id="naver" className="flex w-full" onClick={() => redirectToLogin('naver')}>
+            <img className="flex w-full h-full" src={네이버} alt="Naver 로그인" />
+          </button>
         </div>
       </section>
     </div>

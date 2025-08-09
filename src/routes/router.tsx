@@ -12,6 +12,7 @@ import SetInfoPage from '../pages/SetInfoPage';
 import SuccessPage from '../pages/SuccessPage';
 import UserPage from '../pages/UserPage';
 import LeaguePage from '../pages/LeaguePage';
+import PostOAuth from '../api/PostOAuth';
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
                         path: 'lesson',
                         element: <LessonPage />,
                     },
+                    { path: "/login/oauth2/code/:provider", element: <PostOAuth /> },
                 ],
             },
         ],
