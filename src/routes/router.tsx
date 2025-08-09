@@ -9,6 +9,7 @@ import SuccessPage from '../pages/SuccessPage';
 import UserPage from '../pages/UserPage';
 import StudyPage from '../pages/StudyPage';
 import LeaguePage from '../pages/LeaguePage';
+import PostOAuth from '../api/PostOAuth';
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
             { path: 'user', element: <UserPage /> },
             { path: 'study', element: <StudyPage /> },
             { path: 'league', element: <LeaguePage /> },
+            { path: "/login/oauth2/code/:provider", element: <PostOAuth /> },
         ],
     },
 ]);
