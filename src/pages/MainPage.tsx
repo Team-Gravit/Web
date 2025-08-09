@@ -1,23 +1,37 @@
-import React from 'react';
 import Banner from '../components/@common/banner/Banner';
-import ProgressBar from '../components/@common/progress-bar/ProgressBar';
-import Cup from '@/assets/icons/cup.svg?react';
-import Xp from '@/assets/icons/xp.svg?react';
+
 import { Link } from 'react-router-dom';
 import Rocket from '@/assets/icons/rocket.svg?react';
 import Fire from '@/assets/icons/fire.svg?react';
 import StudyBg from '@/assets/images/study-bg.jpg';
+import { type User } from '../types/user';
+import useTierLabel from '../hooks/useTierLabel';
+import type { Chapter } from '../types/chapter';
+import { PLANET_IMG_MAP } from '../constants/planet-image';
+import ChapterProgressBar from '../components/@common/chapter-progress/ChapterProgressBar';
+import UserStats from '../components/@common/level-info/UserStats';
 
 function MainPage() {
+    const user: User = { id: 0, profileImgNumber: 1, nickname: '방귀요정 뿡뿡이', tier: 'diamond', level: 12 };
+
+    const recentLearningChapter: Chapter = {
+        id: 1,
+        name: '알고리즘',
+        totalUnits: 10,
+        completedUnits: 5,
+        description: '',
+    };
+
     return (
         <div className="h-full w-full flex flex-col">
             <Banner />
-            <div className="flex-grow p-20 bg-[#f2f2f2] flex flex-row gap-6">
-                <section className=" w-1/2 flex flex-col gap-8">
+            <div className="flex-grow p-20 bg-[#f2f2f2] flex flex-col lg:flex-row gap-6">
+                <section className=" w-full lg:w-1/2 flex flex-col gap-8">
                     <h2 className="font-semibold text-[32px]">
-                        현재 땅콩님의 티어는 <strong className="text-[#ff9500]">브론즈</strong>입니다!
+                        현재 {user.nickname}님의 티어는 <strong className="text-[#ff9500]">{useTierLabel(user)}</strong>
+                        입니다!
                     </h2>
-                    <LevelStatus tier="브론즈" value={789} max={10} level={12} />
+                    <UserStats tier="브론즈" value={789} level={12} />
 
                     <div className="flex flex-row gap-4">
                         <article className=" h-full w-2/3 min-h-[334px] flex flex-col justify-between p-4 bg-white rounded-2xl">
@@ -26,7 +40,7 @@ function MainPage() {
                                 <hr className="text-gray-500 border-dashed border-2" />
                                 <ul className="flex list-disc pl-5 leading-none">
                                     <li className="text-2xl font-medium">
-                                        자료구조 챕터3 완료
+                                        {recentLearningChapter.name} 챕터{recentLearningChapter.completedUnits} 완료
                                         <small className="block text-base text-gray-800 font-normal mt-1">
                                             완료 시 150XP
                                         </small>
@@ -62,50 +76,35 @@ function MainPage() {
                         </aside>
                     </div>
                 </section>
-                <section className=" w-1/2 h-full flex flex-col gap-8">
-                    <h2 className="font-semibold text-[32px]">최근 진행한 학습</h2>
+                <section className=" w-full lg:w-1/2  flex flex-col gap-8 ">
+                    <h2 className="font-semibold text-[32px] shrink-0">최근 진행한 학습</h2>
                     <article
-                        className="flex flex-col h-full w-full rounded-[5px] bg-cover bg-center justify-start p-10"
+                        className="cursor-pointer relative flex flex-col flex-1 w-full rounded-2xl bg-cover bg-center justify-start p-10 overflow-hidden drop-shadow-xl group"
                         style={{ backgroundImage: `url(${StudyBg})` }}
                     >
-                        <p className="font-mbc font-semibold text-[18px] text-white">
-                            이어서 학습하기<h3 className="text-[32px]">자료구조</h3>
-                        </p>
-
-                        <div className=" h-[16px] w-[50%] bg-white rounded-full my-[50px] ">
-                            <div
-                                className=" h-full rounded-full text-right transition-all duration-300 bg-main-1"
-                                style={{ width: `${50}%` }}
-                            ></div>
+                        <div className="font-mbc font-semibold text-[18px] text-white z-10">
+                            <p className="mb-0.5">이어서 학습하기</p>
+                            <h3 className="text-[32px]">{recentLearningChapter.name}</h3>
                         </div>
+
+                        <div className="w-1/2 mt-3 z-10">
+                            <ChapterProgressBar
+                                current={recentLearningChapter.completedUnits}
+                                total={recentLearningChapter.totalUnits}
+                            />
+                        </div>
+                        <div className="absolute inset-0 bg-black/20 group-hover:opacity-0 transition-all ease-out duration-500 z-0"></div>
+
+                        <img
+                            src={PLANET_IMG_MAP[recentLearningChapter.id]}
+                            className="absolute w-3/5 top-1/3 transform right-0 translate-x-3 group-hover:-rotate-20 group-hover:scale-110 transition-all ease-out duration-500"
+                            alt={`${recentLearningChapter.name} 행성`}
+                        />
                     </article>
                 </section>
             </div>
         </div>
     );
 }
-
-type LevelStatusProps = {
-    tier: string;
-    value: number;
-    level: number;
-    max: number;
-};
-
-const LevelStatus = ({ level, value, max, tier }: LevelStatusProps) => {
-    return (
-        <article className="w-full h-[44px] flex flex-row items-center gap-2">
-            <div className="flex flex-row items-center justify-center gap-0.5 text-xl font-bold px-1.5 py-1 bg-white rounded-full text-main-2">
-                <Cup className="bg-main-1 rounded-full w-5 h-5" style={{ padding: '2.2px' }} />
-                {tier}
-            </div>
-            <div className="flex flex-row items-center justify-center gap-0.5 text-xl font-bold px-1.5 py-1 bg-white rounded-full text-main-2">
-                <Xp className="bg-main-1 rounded-full w-5 h-5" style={{ padding: '2.2px' }} />
-                {tier}
-            </div>
-            <ProgressBar completed={74} level={13} />
-        </article>
-    );
-};
 
 export default MainPage;

@@ -9,11 +9,14 @@
 
     --color-main-gradient-from: #8100b3;
     --color-main-gradient-to: #dd00ff;
-
     --linear-main-gradient: linear-gradient(44.97deg, #8100b3 0%, #dd00ff 100%);
 
+    --shadow-card: -4px 4px 4px 0px #0000001a;
+
     --font-pretendard: 'Pretendard', sans-serif;
-    --font-mbc: 'mbc1961-gulim', sans-serif;
+    --font-mbc: 'MBC1961GulimM', sans-serif;
+
+    --header-height: 74px;
 }
 
 @font-face {
@@ -24,8 +27,8 @@
 }
 
 @font-face {
-    font-family: 'mbc1961-gulim';
-    src: url('/assets/fonts/MBC-1961-gulim.ttf') format('ttf');
+    font-family: 'MBC1961GulimM';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
