@@ -58,7 +58,7 @@ function LeaguePage() {
                         <h2 className="font-semibold text-[32px]">
                             현재 땅콩님의 티어는 <strong className="text-[#ff9500]">브론즈</strong>입니다!
                         </h2>
-                        <UserStats tier="브론즈" value={789} level={12} />
+                        <UserStats league="브론즈" value={789} level={12} />
                     </div>
 
                     <div className="flex flex-row lg:w-full md:px-3 sm:pl-0 pl-36 py-8 items-center lg:justify-start justify-center gap-6 scroll-smooth overflow-x-auto">

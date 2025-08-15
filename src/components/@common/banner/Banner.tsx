@@ -1,4 +1,3 @@
-import React from 'react';
 import BannerImage from '@/assets/images/banner.png';
 import Logo from '@/assets/logo/white-logo.svg?react';
 

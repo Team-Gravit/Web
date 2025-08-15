@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from '../constants/api';
 import { ApiError } from '../types/@common/api';
 import type MainPageResponse from '../types/api/main';
 
@@ -5,7 +6,7 @@ export default async function fetchMainInfo(): Promise<MainPageResponse> {
     const accessToken = localStorage.getItem('accessToken');
 
     try {
-        const response = await fetch(`https://grav-it.inuappcenter.kr/api/v1/main`, {
+        const response = await fetch(API_ENDPOINTS.main.base, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

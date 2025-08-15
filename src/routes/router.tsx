@@ -1,16 +1,34 @@
 import { createBrowserRouter } from 'react-router-dom';
-import MainPage from '../pages/MainPage';
-import StudyPage from '../pages/StudyPage';
-import LessonPage from '../pages/LessonPage';
 import WithHeaderLayout from '../layouts/WithHeaderLayout';
 import NoHeaderLayout from '../layouts/NoHeaderLayout';
-import LoginPage from '../pages/LoginPage';
-import SetInfoPage from '../pages/SetInfoPage';
-import SuccessPage from '../pages/SuccessPage';
-import UserPage from '../pages/UserPage';
-import LeaguePage from '../pages/LeaguePage';
-import ChapterPage from '../pages/ChapterPage';
-import PostOAuth from '../api/PostOAuth';
+import LoginPage from '../pages/LoginPage'; // 첫 페이지만 즉시 로딩
+import { lazy, Suspense } from 'react';
+
+// 모든 페이지를 lazy loading으로 변경
+const MainPage = lazy(() => import('../pages/MainPage'));
+const StudyPage = lazy(() => import('../pages/StudyPage'));
+const LeaguePage = lazy(() => import('../pages/LeaguePage'));
+const LessonPage = lazy(() => import('../pages/LessonPage'));
+const ChapterPage = lazy(() => import('../pages/ChapterPage'));
+const SetInfoPage = lazy(() => import('../pages/SetInfoPage'));
+const SuccessPage = lazy(() => import('../pages/SuccessPage'));
+const UserPage = lazy(() => import('../pages/UserPage'));
+const PostOAuth = lazy(() => import('../api/PostOAuth'));
+
+// 공통 로딩 컴포넌트
+const PageLoader = () => (
+    <div className="flex items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center gap-3">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <p className="text-gray-600">페이지를 불러오는 중...</p>
+        </div>
+    </div>
+);
+
+// Suspense 래퍼 컴포넌트로 중복 제거
+const LazyPage = ({ children }: { children: React.ReactNode }) => (
+    <Suspense fallback={<PageLoader />}>{children}</Suspense>
+);
 
 const router = createBrowserRouter([
     {
@@ -19,21 +37,78 @@ const router = createBrowserRouter([
             {
                 element: <WithHeaderLayout />,
                 children: [
-                    { index: true, element: <LoginPage /> },
-                    // 헤더 패딩 있는 페이지
-                    { path: 'set-info', element: <SetInfoPage /> },
-                    { path: 'success', element: <SuccessPage /> },
-                    { path: 'user', element: <UserPage /> },
-                    { path: 'study/:chapterId', element: <ChapterPage /> },
+                    { index: true, element: <LoginPage /> }, // 첫 페이지만 즉시 로딩
+
+                    // 나머지는 모두 lazy loading
+                    {
+                        path: 'set-info',
+                        element: (
+                            <LazyPage>
+                                <SetInfoPage />
+                            </LazyPage>
+                        ),
+                    },
+                    {
+                        path: 'success',
+                        element: (
+                            <LazyPage>
+                                <SuccessPage />
+                            </LazyPage>
+                        ),
+                    },
+                    {
+                        path: 'user',
+                        element: (
+                            <LazyPage>
+                                <UserPage />
+                            </LazyPage>
+                        ),
+                    },
+                    {
+                        path: 'study/:chapterId',
+                        element: (
+                            <LazyPage>
+                                <ChapterPage />
+                            </LazyPage>
+                        ),
+                    },
                 ],
             },
             {
                 element: <WithHeaderLayout headerOverlay={true} />,
                 children: [
-                    { path: 'main', element: <MainPage /> },
-                    { path: 'study', element: <StudyPage /> },
-                    { path: 'league', element: <LeaguePage /> },
-                    { path: 'login/oauth2/code/:provider', element: <PostOAuth /> },
+                    {
+                        path: 'main',
+                        element: (
+                            <LazyPage>
+                                <MainPage />
+                            </LazyPage>
+                        ),
+                    },
+                    {
+                        path: 'study',
+                        element: (
+                            <LazyPage>
+                                <StudyPage />
+                            </LazyPage>
+                        ),
+                    },
+                    {
+                        path: 'league',
+                        element: (
+                            <LazyPage>
+                                <LeaguePage />
+                            </LazyPage>
+                        ),
+                    },
+                    {
+                        path: 'login/oauth2/code/:provider',
+                        element: (
+                            <LazyPage>
+                                <PostOAuth />
+                            </LazyPage>
+                        ),
+                    },
                 ],
             },
             {
@@ -41,7 +116,11 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: 'lesson',
-                        element: <LessonPage />,
+                        element: (
+                            <LazyPage>
+                                <LessonPage />
+                            </LazyPage>
+                        ),
                     },
                 ],
             },

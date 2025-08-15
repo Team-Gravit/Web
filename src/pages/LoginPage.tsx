@@ -4,12 +4,12 @@ import Profile3 from '@/assets/images/profile3.svg?react';
 import google from '@/assets/images/google.svg';
 import kakao from '@/assets/images/kakao.svg';
 import naver from '@/assets/images/naver.svg';
-import { API_PREFIX } from '../constants/api';
+import { API_ENDPOINTS } from '../constants/api';
 
 export default function LoginPage() {
     const redirectToLogin = async (provider: 'google' | 'kakao' | 'naver') => {
         try {
-            const response = await fetch(`${API_PREFIX.oauth}/login-url/${provider}`);
+            const response = await fetch(`${API_ENDPOINTS.oauth.base}/login-url/${provider}`);
             const data = await response.json();
 
             if (!data.loginUrl) {

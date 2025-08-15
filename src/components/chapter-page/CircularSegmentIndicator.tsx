@@ -1,4 +1,4 @@
-import React, { type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 const CircularSegmentIndicator = ({ children, chapterNumber }: { children: ReactNode; chapterNumber: number }) => {
     const progress = 33.33 * chapterNumber;

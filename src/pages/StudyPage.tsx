@@ -4,35 +4,6 @@ import ChapterCard from '../components/study-page/ChapterCard';
 import fetchChapters from '../api/fetchChapters';
 import { Link } from 'react-router-dom';
 
-// const chapters: Chapter[] = [
-//     {
-//         id: 1,
-//         name: '자료구조',
-//         description: '큐, 스택, 힙과 같은 자료구조에 대해 학습합니다.',
-//         totalUnits: 10,
-//         completedUnits: 7,
-//     },
-//     { id: 2, name: '알고리즘', description: '알고리즘에 대해 학습합니다.', totalUnits: 10, completedUnits: 6 },
-//     { id: 3, name: '네트워크', description: '네트워크에 대해 학습합니다.', totalUnits: 10, completedUnits: 5 },
-//     { id: 4, name: '운영체제', description: '운영체제에 대해 학습합니다.', totalUnits: 10, completedUnits: 3 },
-//     { id: 5, name: '데이터베이스', description: '데이터베이스에 대해 학습합니다.', totalUnits: 10, completedUnits: 1 },
-//     { id: 6, name: '보안', description: '보안에 대해 학습합니다.', totalUnits: 10, completedUnits: 7 },
-//     {
-//         id: 7,
-//         name: '컴퓨터 아키텍처',
-//         description: '컴퓨터 아키텍처에 대해 학습합니다.',
-//         totalUnits: 10,
-//         completedUnits: 2,
-//     },
-//     {
-//         id: 8,
-//         name: '소프트웨어\n엔지니어링',
-//         description: '소프트웨어 엔지니어링에 대해 학습합니다.',
-//         totalUnits: 10,
-//         completedUnits: 4,
-//     },
-// ];
-
 function StudyPage() {
     const { data, isPending, isError, error } = useQuery({
         queryKey: ['learning'],
@@ -40,11 +11,11 @@ function StudyPage() {
     });
 
     if (isPending) {
-        <div>패칭중</div>;
+        return <div>패칭중</div>;
     }
 
     if (isError) {
-        <div>{error.message}</div>;
+        return <div>{error.message}</div>;
     }
 
     return (
