@@ -43,7 +43,6 @@ const router = createBrowserRouter([
                         path: 'lesson',
                         element: <LessonPage />,
                     },
-                    { path: "/login/oauth2/code/:provider", element: <PostOAuth /> },
                 ],
             },
         ],
