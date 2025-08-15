@@ -21,3 +21,14 @@ export const PLANET_IMG_MAP = {
 } as const;
 
 export type PlanetId = keyof typeof PLANET_IMG_MAP;
+
+export function isPlanetId(id: number): id is PlanetId {
+    return id >= 1 && id <= 9 && Number.isInteger(id);
+}
+
+export function getPlanetImage(chapterId: number): string {
+    if (isPlanetId(chapterId)) {
+        return PLANET_IMG_MAP[chapterId]; // 타입 에러 없음!
+    }
+    return PLANET_IMG_MAP[1]; // 기본값
+}
