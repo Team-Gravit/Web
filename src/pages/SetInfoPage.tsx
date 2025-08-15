@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import LoginBg from '@/assets/images/login-bg.svg';
@@ -6,21 +5,24 @@ import Logo from '@/assets/logo/white-logo.svg?react';
 import RightArrow from '@/assets/icons/right-gray-arrow.svg?react';
 import LeftArrow from '@/assets/icons/left-gray-arrow.svg?react';
 import Profile2 from '@/assets/images/profile2.svg?react';
+import { PROFILE_COLORS } from '../constants/profile-colors';
+import { PatchOnBoarding } from '../api/patchOnBoarding';
 
 export default function SetInfoPage() {
-  const colors = ['#D85050', '#4A90E2', '#7ED321', '#F5A623'];
+  const colorKeys = Object.keys(PROFILE_COLORS).map(Number) as (keyof typeof PROFILE_COLORS)[];
   const [colorIndex, setColorIndex] = useState(0);
   const [nickname, setNickname] = useState('');
   const [isLimit, setIsLimit] = useState(false);
   const [checking, setChecking] = useState(false); 
   const navigate = useNavigate();
+  
 
   const handlePrev = () => {
-    setColorIndex((prev) => (prev === 0 ? colors.length - 1 : prev - 1));
+    setColorIndex((prev) => (prev === 0 ? colorKeys.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setColorIndex((prev) => (prev === colors.length - 1 ? 0 : prev + 1));
+    setColorIndex((prev) => (prev === colorKeys.length - 1 ? 0 : prev + 1));
   };
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function SetInfoPage() {
     return () => clearTimeout(handler);
   }, [nickname]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!nickname.trim()) {
       alert('닉네임을 입력해주세요.');
       return;
@@ -51,7 +53,16 @@ export default function SetInfoPage() {
       alert('닉네임은 2자 이상 8자 이하이며, 공백 및 특수문자는 사용할 수 없어요.');
       return;    
     }
-    navigate('/success');
+
+    try {
+      const profilePhotoNumber = colorKeys[colorIndex];
+      const result = await PatchOnBoarding(nickname.trim(), profilePhotoNumber);
+      console.log('온보딩 완료:', result);
+      navigate('/success');
+    } catch (error) {
+      alert('온보딩 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error(error);
+    }
   };
 
   return (
@@ -72,7 +83,11 @@ export default function SetInfoPage() {
           <button onClick={handlePrev}>
             <LeftArrow className="mt-0.5 cursor-pointer" />
           </button>
-          <Profile2 className="w-40 h-40" style={{ color: colors[colorIndex] }} />
+          
+          <Profile2
+            className="w-40 h-40"
+            style={{ color: PROFILE_COLORS[colorKeys[colorIndex]] }}
+          />
           <button onClick={handleNext}>
             <RightArrow className="cursor-pointer" />
           </button>

@@ -1,8 +1,6 @@
-// src/main.tsx
 import { createBrowserRouter } from 'react-router-dom';
 
 import MainPage from '../pages/MainPage';
-
 import StudyPage from '../pages/StudyPage';
 import LessonPage from '../pages/LessonPage';
 import WithHeaderLayout from '../layouts/WithHeaderLayout';
@@ -12,7 +10,7 @@ import SetInfoPage from '../pages/SetInfoPage';
 import SuccessPage from '../pages/SuccessPage';
 import UserPage from '../pages/UserPage';
 import LeaguePage from '../pages/LeaguePage';
-import PostOAuth from '../api/PostOAuth';
+import PostOAuth from '../api/postOAuth';
 
 const router = createBrowserRouter([
     {
@@ -21,8 +19,7 @@ const router = createBrowserRouter([
             {
                 element: <WithHeaderLayout />,
                 children: [
-                    // 헤더 패딩 있는 페이지
-                    { path: 'login', element: <LoginPage /> },
+                    { index: true, element: <LoginPage /> },
                     { path: 'set-info', element: <SetInfoPage /> },
                     { path: 'success', element: <SuccessPage /> },
                     { path: 'user', element: <UserPage /> },
@@ -31,8 +28,7 @@ const router = createBrowserRouter([
             {
                 element: <WithHeaderLayout headerOverlay={true} />,
                 children: [
-                    // 헤더 패딩 없는 페이지
-                    { index: true, element: <MainPage /> },
+                    { path: 'main', element: <MainPage /> },
                     { path: 'study', element: <StudyPage /> },
                     { path: 'league', element: <LeaguePage /> },
                 ],

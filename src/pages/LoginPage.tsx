@@ -1,14 +1,15 @@
 import LoginBg from '@/assets/images/login-bg.svg';
 import Logo from '@/assets/logo/white-logo.svg?react';
 import Profile3 from '@/assets/images/profile3.svg?react';
-import 구글 from '@/assets/images/구글.svg';
-import 카카오 from '@/assets/images/카카오.svg';
-import 네이버 from '@/assets/images/네이버.svg';
+import google from '@/assets/images/google.svg';
+import kakao from '@/assets/images/kakao.svg';
+import naver from '@/assets/images/naver.svg';
+import { API_PREFIX } from '../constants/api'
 
 export default function LoginPage() {
   const redirectToLogin = async (provider: 'google' | 'kakao' | 'naver') => {
     try {
-      const response = await fetch(`https://grav-it.inuappcenter.kr/api/v1/oauth/login-url/${provider}`);
+      const response = await fetch(`${API_PREFIX.oauth}/login-url/${provider}`);
       const data = await response.json();
 
       if (!data.loginUrl) {
@@ -52,13 +53,13 @@ export default function LoginPage() {
         <div className="w-full border-[0.5px] border-dashed border-[#C3C3C3]" />
         <div className="flex flex-col items-center w-full h-40 gap-1.5">
           <button id="google" className="flex w-full" onClick={() => redirectToLogin('google')}>
-            <img className="flex w-full h-full" src={구글} alt="Google 로그인" />
+            <img className="flex w-full h-full" src={google} alt="Google" />
           </button>
           <button id="kakao" className="flex w-full" onClick={() => redirectToLogin('kakao')}>
-            <img className="flex w-full h-full" src={카카오} alt="Kakao 로그인" />
+            <img className="flex w-full h-full" src={kakao} alt="Kakao" />
           </button>
           <button id="naver" className="flex w-full" onClick={() => redirectToLogin('naver')}>
-            <img className="flex w-full h-full" src={네이버} alt="Naver 로그인" />
+            <img className="flex w-full h-full" src={naver} alt="Naver" />
           </button>
         </div>
       </section>
