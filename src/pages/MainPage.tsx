@@ -3,24 +3,27 @@ import Banner from '../components/@common/banner/Banner';
 import { Link } from 'react-router-dom';
 import Rocket from '@/assets/icons/rocket.svg?react';
 import Fire from '@/assets/icons/fire.svg?react';
-import StudyBg from '@/assets/images/study-bg.jpg';
-import { type User } from '../types/user';
-import useTierLabel from '../hooks/useTierLabel';
-import type { Chapter } from '../types/chapter';
-import { PLANET_IMG_MAP } from '../constants/planet-image';
-import ChapterProgressBar from '../components/@common/chapter-progress/ChapterProgressBar';
 import UserStats from '../components/@common/level-info/UserStats';
+import { useQuery } from '@tanstack/react-query';
+import fetchMainInfo from '../api/fetchMainInfo';
+import RecentLearningSection from '../components/main-page/RecentLearningSection';
 
 function MainPage() {
-    const user: User = { id: 0, profileImgNumber: 1, nickname: '방귀요정 뿡뿡이', tier: 'diamond', level: 12 };
+    const { data, isPending, isError, error } = useQuery({
+        queryKey: ['main-info'],
+        queryFn: fetchMainInfo,
+    });
 
-    const recentLearningChapter: Chapter = {
-        id: 1,
-        name: '알고리즘',
-        totalUnits: 10,
-        completedUnits: 5,
-        description: '',
-    };
+    if (isPending) {
+        return <div className="h-full w-full flex flex-col">로딩중</div>;
+    }
+
+    if (isError) {
+        <div className="h-full w-full flex flex-col"></div>;
+        return <div>{error.message}</div>;
+    }
+
+    const { nickname, level, xp, league, recentLearningSummaryResponse: recentData } = data;
 
     return (
         <div className="h-full w-full flex flex-col">
@@ -28,10 +31,10 @@ function MainPage() {
             <div className="flex-grow p-20 bg-[#f2f2f2] flex flex-col lg:flex-row gap-6">
                 <section className=" w-full lg:w-1/2 flex flex-col gap-8">
                     <h2 className="font-semibold text-[32px]">
-                        현재 {user.nickname}님의 티어는 <strong className="text-[#ff9500]">{useTierLabel(user)}</strong>
+                        현재 {nickname}님의 티어는 <strong className="text-[#ff9500]">{league || '브론즈'}</strong>
                         입니다!
                     </h2>
-                    <UserStats tier="브론즈" value={789} level={12} />
+                    <UserStats league={league || '브론즈'} value={xp} level={level} />
 
                     <div className="flex flex-row gap-4">
                         <article className=" h-full w-2/3 min-h-[334px] flex flex-col justify-between p-4 bg-white rounded-2xl">
@@ -40,7 +43,8 @@ function MainPage() {
                                 <hr className="text-gray-500 border-dashed border-2" />
                                 <ul className="flex list-disc pl-5 leading-none">
                                     <li className="text-2xl font-medium">
-                                        {recentLearningChapter.name} 챕터{recentLearningChapter.completedUnits} 완료
+                                        {recentData.chapterName} 챕터
+                                        {recentData.completedUnits} 완료
                                         <small className="block text-base text-gray-800 font-normal mt-1">
                                             완료 시 150XP
                                         </small>
@@ -76,32 +80,12 @@ function MainPage() {
                         </aside>
                     </div>
                 </section>
-                <section className=" w-full lg:w-1/2  flex flex-col gap-8 ">
-                    <h2 className="font-semibold text-[32px] shrink-0">최근 진행한 학습</h2>
-                    <article
-                        className="cursor-pointer relative flex flex-col flex-1 w-full rounded-2xl bg-cover bg-center justify-start p-10 overflow-hidden drop-shadow-xl group"
-                        style={{ backgroundImage: `url(${StudyBg})` }}
-                    >
-                        <div className="font-mbc font-semibold text-[18px] text-white z-10">
-                            <p className="mb-0.5">이어서 학습하기</p>
-                            <h3 className="text-[32px]">{recentLearningChapter.name}</h3>
-                        </div>
-
-                        <div className="w-1/2 mt-3 z-10">
-                            <ChapterProgressBar
-                                current={recentLearningChapter.completedUnits}
-                                total={recentLearningChapter.totalUnits}
-                            />
-                        </div>
-                        <div className="absolute inset-0 bg-black/20 group-hover:opacity-0 transition-all ease-out duration-500 z-0"></div>
-
-                        <img
-                            src={PLANET_IMG_MAP[recentLearningChapter.id]}
-                            className="absolute w-3/5 top-1/3 transform right-0 translate-x-3 group-hover:-rotate-20 group-hover:scale-110 transition-all ease-out duration-500"
-                            alt={`${recentLearningChapter.name} 행성`}
-                        />
-                    </article>
-                </section>
+                <RecentLearningSection
+                    chapterId={recentData.chapterId}
+                    chapterName={recentData.chapterName}
+                    completedUnits={recentData.completedUnits}
+                    totalUnits={recentData.totalUnits}
+                />
             </div>
         </div>
     );
