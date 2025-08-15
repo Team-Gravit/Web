@@ -1,4 +1,4 @@
-import type { PlanetId } from '../constants/planet-image';
+import type { PlanetId } from '../../constants/planet-image';
 
 export interface Chapter {
     id: PlanetId;

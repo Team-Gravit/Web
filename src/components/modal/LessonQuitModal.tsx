@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from '../../../@common/modal/Modal';
+import Modal from '../@common/modal/Modal';
 import RabbitIcon from '@/assets/mascot/mascot-sad.svg?react';
 
 function LessonQuitModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {

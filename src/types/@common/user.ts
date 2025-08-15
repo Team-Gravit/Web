@@ -1,9 +1,9 @@
-import type { Tier } from './tier';
+import type { League } from './league';
 
 export interface User {
     id: number;
     profileImgNumber: number;
     nickname: string;
-    tier?: Tier;
+    league?: League;
     level: number;
 }

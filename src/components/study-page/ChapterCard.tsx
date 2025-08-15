@@ -1,8 +1,8 @@
-import type { Chapter } from '../../../types/chapter';
 import StudyBg from '@/assets/images/study-bg.jpg';
 import InfoCircle from '@/assets/icons/info-circle.svg?react';
-import ChapterProgressBar from '../../@common/chapter-progress/ChapterProgressBar';
-import { PLANET_IMG_MAP } from '../../../constants/planet-image';
+import ChapterProgressBar from '../@common/chapter-progress/ChapterProgressBar';
+import type { Chapter } from '../../types/@common/chapter';
+import { getPlanetImage } from '../../constants/planet-image';
 
 function ChapterCard({ chapter }: { chapter: Chapter }) {
     return (
@@ -22,7 +22,7 @@ function ChapterCard({ chapter }: { chapter: Chapter }) {
             <div className="absolute inset-0 bg-black/20 group-hover:opacity-0 transition-all ease-out duration-500 z-0"></div>
             <ChapterProgressBar total={chapter.totalUnits} current={chapter.completedUnits} />
             <img
-                src={PLANET_IMG_MAP[chapter.id]}
+                src={getPlanetImage(chapter.id)}
                 className="absolute w-[60%] h-auto lg:w-45 top-1/3 transform right-0 translate-x-3 lg:top-1/2 lg:translate-x-7 group-hover:-rotate-20 group-hover:scale-110 transition-all ease-out duration-500"
                 alt={`${chapter.name} 행성`}
             />
