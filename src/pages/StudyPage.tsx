@@ -1,6 +1,6 @@
 import Banner from '../components/@common/banner/Banner';
-import ChapterCard from '../components/Landing/study-page/ChapterCard';
-import type { Chapter } from '../types/chapter';
+import ChapterCard from '../components/study-page/ChapterCard';
+import type { Chapter } from '../types/@common/chapter';
 
 const chapters: Chapter[] = [
     {

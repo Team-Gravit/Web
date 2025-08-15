@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import Rocket from '@/assets/icons/rocket.svg?react';
 import Fire from '@/assets/icons/fire.svg?react';
 import StudyBg from '@/assets/images/study-bg.jpg';
-import { type User } from '../types/user';
-import useTierLabel from '../hooks/useTierLabel';
-import type { Chapter } from '../types/chapter';
 import { PLANET_IMG_MAP } from '../constants/planet-image';
 import ChapterProgressBar from '../components/@common/chapter-progress/ChapterProgressBar';
 import UserStats from '../components/@common/level-info/UserStats';
+import type { User } from '../types/@common/user';
+import type { Chapter } from '../types/@common/chapter';
+import useLeagueLabel from '../hooks/useLeagueLabel';
 
 function MainPage() {
-    const user: User = { id: 0, profileImgNumber: 1, nickname: '방귀요정 뿡뿡이', tier: 'diamond', level: 12 };
+    const user: User = { id: 0, profileImgNumber: 1, nickname: '방귀요정 뿡뿡이', league: 'diamond', level: 12 };
 
     const recentLearningChapter: Chapter = {
         id: 1,
@@ -28,10 +28,11 @@ function MainPage() {
             <div className="flex-grow p-20 bg-[#f2f2f2] flex flex-col lg:flex-row gap-6">
                 <section className=" w-full lg:w-1/2 flex flex-col gap-8">
                     <h2 className="font-semibold text-[32px]">
-                        현재 {user.nickname}님의 티어는 <strong className="text-[#ff9500]">{useTierLabel(user)}</strong>
+                        현재 {user.nickname}님의 티어는{' '}
+                        <strong className="text-[#ff9500]">{useLeagueLabel(user)}</strong>
                         입니다!
                     </h2>
-                    <UserStats tier="브론즈" value={789} level={12} />
+                    <UserStats league="브론즈" value={789} level={12} />
 
                     <div className="flex flex-row gap-4">
                         <article className=" h-full w-2/3 min-h-[334px] flex flex-col justify-between p-4 bg-white rounded-2xl">
