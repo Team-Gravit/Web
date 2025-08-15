@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { API_PREFIX } from '../constants/api';
+import { API_ENDPOINTS } from '../constants/api';
 
 export default function PostOAuth() {
     const { provider } = useParams<{ provider: string }>();
@@ -19,7 +19,7 @@ export default function PostOAuth() {
 
         const postCode = async () => {
             try {
-                const res = await fetch(`${API_PREFIX.oauth}/${provider}`, {
+                const res = await fetch(`${API_ENDPOINTS.oauth.base}/${provider}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

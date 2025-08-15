@@ -1,8 +1,8 @@
 import Banner from '../components/@common/banner/Banner';
 
 import { Link } from 'react-router-dom';
-import Rocket from '@/assets/icons/rocket.svg?react';
-import Fire from '@/assets/icons/fire.svg?react';
+import Rocket from '@/assets/images/rocket.png';
+import Fire from '@/assets/images/fire.png';
 import UserStats from '../components/@common/level-info/UserStats';
 import { useQuery } from '@tanstack/react-query';
 import fetchMainInfo from '../api/fetchMainInfo';
@@ -61,7 +61,7 @@ function MainPage() {
                         <aside className="flex flex-col w-1/3 min-h-[334px] gap-8">
                             <dl className="flex flex-col gap-4 flex-grow">
                                 <div className="w-full flex-1 bg-white rounded-2xl p-4 flex flex-row justify-center items-center">
-                                    <Rocket />
+                                    <img src={Rocket} className="w-[50px]" />
 
                                     <p className=" flex flex-col justify-start items-start">
                                         <dt className="font-normal text-base">행성 정복률</dt>
@@ -70,7 +70,7 @@ function MainPage() {
                                 </div>
 
                                 <div className="w-full flex-1 bg-white rounded-2xl p-4 flex flex-row justify-center items-center">
-                                    <Fire />
+                                    <img src={Fire} className="w-[50px]" />
                                     <p className="flex flex-col justify-center items-start">
                                         <dt className="font-normal text-base">연속 학습일</dt>
                                         <dd className="font-semibold text-2xl">3일</dd>

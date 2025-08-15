@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import XIcon from '@/assets/icons/x.svg?react';
 import TimerIcon from '@/assets/icons/timer.svg?react';
 import ClipBoardIcon from '@/assets/icons/clipboard.svg?react';

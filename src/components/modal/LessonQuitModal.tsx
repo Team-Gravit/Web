@@ -1,4 +1,3 @@
-import React from 'react';
 import Modal from '../@common/modal/Modal';
 import RabbitIcon from '@/assets/mascot/mascot-sad.svg?react';
 

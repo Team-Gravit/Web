@@ -1,12 +1,11 @@
-import { API_ENDPOINTS } from '../constants/api';
 import { ApiError } from '../types/@common/api';
-import type MainPageResponse from '../types/api/main';
+import type { Chapter } from '../types/@common/chapter';
+import { transformChapters } from '../utils/transformChapter';
 
-export default async function fetchMainInfo(): Promise<MainPageResponse> {
+export default async function fetchChapters(): Promise<Chapter[]> {
     const accessToken = localStorage.getItem('accessToken');
-
     try {
-        const response = await fetch(API_ENDPOINTS.main.base, {
+        const response = await fetch(`https://grav-it.inuappcenter.kr/api/v1/learning/chapters`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,8 +33,7 @@ export default async function fetchMainInfo(): Promise<MainPageResponse> {
         const data = await response.json();
         console.log('서버 응답:', data); // 디버깅용
 
-        // 서버 응답이 직접 데이터인 경우
-        return data;
+        return transformChapters(data);
     } catch (error) {
         // 네트워크 에러나 기타 예외 처리
         if (error instanceof ApiError) {
