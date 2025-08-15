@@ -32,7 +32,7 @@ const LazyPage = ({ children }: { children: React.ReactNode }) => (
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: '/*',
         children: [
             {
                 element: <WithHeaderLayout />,
