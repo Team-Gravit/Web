@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import XIcon from '@/assets/icons/x.svg?react';
 import TimerIcon from '@/assets/icons/timer.svg?react';
 import ClipBoardIcon from '@/assets/icons/clipboard.svg?react';
-import LessonQuitModal from '../components/Landing/lesson-page/modal/LessonQuitModal';
+import LessonQuitModal from '../components/modal/LessonQuitModal';
 
 function LessonPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
