@@ -18,33 +18,37 @@ export default function PostOAuth() {
         isCalledRef.current = true;
 
         const postCode = async () => {
-            try {
-                const res = await fetch(`${API_ENDPOINTS.oauth.base}/${provider}`, {
+        try {
+            const dest = process.env.NODE_ENV === 'production' ? 'prod' : 'local';
+
+            const res = await fetch(
+                `${API_ENDPOINTS.oauth.base}/${provider}?dest=${dest}`,
+                {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ code }),
-                });
-
-                if (!res.ok) throw new Error('로그인 실패');
-
-                const data: { accessToken: string; isOnboarded: boolean } = await res.json();
-                console.log('accessToken:', data.accessToken);
-
-                localStorage.setItem('accessToken', data.accessToken);
-
-                if (data.isOnboarded) {
-                    navigate('/main', { replace: true });
-                } else {
-                    navigate('/set-info', { replace: true });
                 }
-            } catch (error) {
-                console.error(`${provider} 로그인 실패:`, error);
-                alert('로그인 중 오류가 발생했습니다.');
-                navigate('/login', { replace: true });
+            );
+
+            if (!res.ok) throw new Error('로그인 실패');
+
+            const data: { accessToken: string; isOnboarded: boolean } = await res.json();
+
+            localStorage.setItem('accessToken', data.accessToken);
+
+            if (data.isOnboarded) {
+                navigate('/main', { replace: true });
+            } else {
+                navigate('/set-info', { replace: true });
             }
-        };
+        } catch (error) {
+            console.error(`${provider} 로그인 실패:`, error);
+            alert('로그인 중 오류가 발생했습니다.');
+            navigate('/login', { replace: true });
+        }
+    };
 
         postCode();
     }, [provider, location.search, navigate]);

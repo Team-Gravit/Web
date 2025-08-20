@@ -24,7 +24,7 @@ export default function SuccessPage() {
         <span className="text-[16px] text-[#4C4C4C] mt-4">그래빗의 일원이 된 걸 환영해요!</span>
         <Success />
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/main')}
           className="mt-8 w-full h-14 text-white py-2 rounded-xl text-lg font-semibold bg-[#8100B3]"
         >
           홈으로
