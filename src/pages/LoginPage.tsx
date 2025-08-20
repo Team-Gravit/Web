@@ -9,7 +9,11 @@ import { API_ENDPOINTS } from '../constants/api';
 export default function LoginPage() {
     const redirectToLogin = async (provider: 'google' | 'kakao' | 'naver') => {
         try {
-            const response = await fetch(`${API_ENDPOINTS.oauth.base}/login-url/${provider}`);
+            const dest = process.env.NODE_ENV === 'production' ? 'prod' : 'local';
+
+            const response = await fetch(
+                `${API_ENDPOINTS.oauth.base}/login-url/${provider}?dest=${dest}`
+            );
             const data = await response.json();
 
             if (!data.loginUrl) {
@@ -18,12 +22,14 @@ export default function LoginPage() {
 
             localStorage.setItem('returnTo', window.location.pathname);
 
+         
             window.location.href = data.loginUrl;
         } catch (error) {
             console.error(`${provider} 로그인 처리 중 오류:`, error);
             alert('로그인 요청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         }
     };
+
 
     return (
         <div
