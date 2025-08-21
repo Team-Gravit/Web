@@ -1,4 +1,4 @@
-import StudyBg from '@/assets/images/study-bg.jpg';
+import StudyBg from '@/assets/images/background.webp';
 import InfoCircle from '@/assets/icons/info-circle.svg?react';
 import ChapterProgressBar from '../@common/chapter-progress/ChapterProgressBar';
 import type { Chapter } from '../../types/@common/chapter';

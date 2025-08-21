@@ -1,4 +1,4 @@
-import BannerImage from '@/assets/images/banner.png';
+import BannerImage from '@/assets/images/banner.webp';
 import Logo from '@/assets/logo/white-logo.svg?react';
 
 function Banner() {
