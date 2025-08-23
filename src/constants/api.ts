@@ -24,4 +24,9 @@ export const API_ENDPOINTS = {
         list: `${API_BASE_URL}/friends/list`,
         add: `${API_BASE_URL}/friends/add`,
     },
+    leagues: {
+        base: `${API_BASE_URL}/rank`,
+        user: (num: number) => `${API_BASE_URL}/rank/user-leagues/page/${num}`,
+        tier: (id: number, num: number) => `${API_BASE_URL}/rank/leagues/${id}/page/${num}`,
+    }
 } as const;

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Profile2 from '@/assets/images/profile2.svg?react';
 import Person from '@/assets/icons/person.svg?react';
 import People from '@/assets/icons/people.svg?react';
 import RightArrow from '@/assets/icons/right-arrow.svg?react';
 import GoldBadge from '@/assets/icons/gold-badge.svg?react';
 import CopperBadge from '@/assets/icons/copper-badge.svg?react';
-import { GetMypage } from '../api/getMypage';
+import { getMypage } from '../api/getMypage';
 import { PROFILE_COLORS } from '../constants/profile-colors';
 
 type UserInfo = {
@@ -31,11 +31,15 @@ const dummyUserInfo: UserInfo = {
 export default function UserPage() {
     const [userinfo, setUserinfo] = useState<UserInfo>(dummyUserInfo);
     const [loading, setLoading] = useState(true);
+    const fetchedRef = useRef(false); // 중복 호출 방지
 
     useEffect(() => {
+        if (fetchedRef.current) return; // 이미 fetch했으면 종료
+        fetchedRef.current = true;
+
         async function fetchUser() {
             try {
-                const res = await GetMypage();
+                const res = await getMypage();
                 setUserinfo({
                     nickname: res.nickname,
                     profileImgNumber: res.profileImgNumber,
