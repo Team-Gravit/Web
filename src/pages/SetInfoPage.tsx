@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import LoginBg from '@/assets/images/login-bg.svg';
+import LoginBg from '@/assets/images/background.webp';
 import Logo from '@/assets/logo/white-logo.svg?react';
 import RightArrow from '@/assets/icons/right-gray-arrow.svg?react';
 import LeftArrow from '@/assets/icons/left-gray-arrow.svg?react';

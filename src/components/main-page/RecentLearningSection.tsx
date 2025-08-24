@@ -1,6 +1,6 @@
 import ChapterProgressBar from '../@common/chapter-progress/ChapterProgressBar';
 import { getPlanetImage } from '../../constants/planet-image';
-import backgroundImg from '@/assets/images/study-bg.jpg';
+import backgroundImg from '@/assets/images/background.webp';
 import ArrowLeftSvg from '@/assets/icons/button/arrow-left.svg?react';
 import { Link } from 'react-router-dom';
 
@@ -43,7 +43,9 @@ function RecentLearningSection({ chapterName, completedUnits, totalUnits, chapte
                     </h3>
                     <ArrowLeftSvg className="z-10 relative" />
                 </div>
-                <p className="mb-2 text-white font-medium text-2xl z-10 relative">최근에 진행한 학습 정보가 없습니다.</p>
+                <p className="mb-2 text-white font-medium text-2xl z-10 relative">
+                    최근에 진행한 학습 정보가 없습니다.
+                </p>
             </Link>
         );
     }

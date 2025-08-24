@@ -1,4 +1,4 @@
-import backgroundImg from '@/assets/images/background/study-bg.png';
+import backgroundImg from '@/assets/images/background.webp';
 import defaultPlanet from '@/assets/images/planets/Moon.png';
 import { useParams } from 'react-router-dom';
 import { getPlanetImage } from '../constants/planet-image';

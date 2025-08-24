@@ -1,4 +1,4 @@
-import LoginBg from '@/assets/images/login-bg.svg';
+import LoginBg from '@/assets/images/background.webp';
 import Logo from '@/assets/logo/white-logo.svg?react';
 import Profile3 from '@/assets/images/profile3.svg?react';
 import google from '@/assets/images/google.svg';
@@ -11,9 +11,7 @@ export default function LoginPage() {
         try {
             const dest = process.env.NODE_ENV === 'production' ? 'prod' : 'local';
 
-            const response = await fetch(
-                `${API_ENDPOINTS.oauth.base}/login-url/${provider}?dest=${dest}`
-            );
+            const response = await fetch(`${API_ENDPOINTS.oauth.base}/login-url/${provider}?dest=${dest}`);
             const data = await response.json();
 
             if (!data.loginUrl) {
@@ -22,14 +20,12 @@ export default function LoginPage() {
 
             localStorage.setItem('returnTo', window.location.pathname);
 
-         
             window.location.href = data.loginUrl;
         } catch (error) {
             console.error(`${provider} 로그인 처리 중 오류:`, error);
             alert('로그인 요청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         }
     };
-
 
     return (
         <div
