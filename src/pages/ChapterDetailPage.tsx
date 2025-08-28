@@ -8,6 +8,8 @@ import Line from '@/assets/mascot/line.svg?react';
 import CircularSegmentIndicator from '../components/chapter-page/CircularSegmentIndicator';
 import { useState } from 'react';
 import Tooltip from '../components/chapter-page/Tooltip';
+import fetchUnits from '../api/fetchUnits';
+import { useQuery } from '@tanstack/react-query';
 
 const positions = [
     { x: 70, y: 170 },
@@ -16,24 +18,39 @@ const positions = [
     { x: 16, y: 500 },
     { x: 34, y: 610 },
     { x: 52, y: 720 },
+    { x: 70, y: 800 },
 ];
 
-function ChapterPage() {
+function ChapterDetailPage() {
     const { chapterId } = useParams();
     const [tooltip, setTooltip] = useState<number | null>(null);
 
-    const units = [
-        { id: 1, name: '배열', completed: true },
-        { id: 2, name: '배열의 기초', completed: true },
-        { id: 3, name: '리스트 구조', completed: false },
-        { id: 4, name: '해시 테이블', completed: false },
-        { id: 5, name: '트리 기초', completed: false },
-        { id: 6, name: '그래프 이론', completed: false },
-    ];
+    const { data, isPending, isError, error } = useQuery({
+        queryKey: ['unit-list', { id: chapterId }],
+        queryFn: () => fetchUnits(Number(chapterId)),
+    });
 
     // 최대 y 좌표 + 여유 공간으로 실제 높이 계산
     const maxY = Math.max(...positions.map((pos) => pos.y));
     const contentHeight = maxY + 200; // 여유 공간 추가
+
+    if (isPending) {
+        <div>로딩중</div>;
+    }
+
+    if (isError) {
+        <div>{error.message}</div>;
+    }
+
+    const units = data;
+
+    if (!data) {
+        return <div></div>;
+    }
+
+    if (data) {
+        console.log(data);
+    }
 
     return (
         <div
@@ -47,7 +64,7 @@ function ChapterPage() {
                 height: `${contentHeight}px`,
             }}
         >
-            {units.map((unit, index) => {
+            {units?.map((unit, index) => {
                 if (index == 0) {
                     return (
                         <button
@@ -95,4 +112,4 @@ function ChapterPage() {
     );
 }
 
-export default ChapterPage;
+export default ChapterDetailPage;

@@ -6,10 +6,10 @@ import { lazy, Suspense } from 'react';
 
 // 모든 페이지를 lazy loading으로 변경
 const MainPage = lazy(() => import('../pages/MainPage'));
-const StudyPage = lazy(() => import('../pages/StudyPage'));
+const ChapterListPage = lazy(() => import('../pages/ChapterListPage'));
 const LeaguePage = lazy(() => import('../pages/LeaguePage'));
-const LessonPage = lazy(() => import('../pages/LessonPage'));
-const ChapterPage = lazy(() => import('../pages/ChapterPage'));
+const ProblemPage = lazy(() => import('../pages/ProblemPage'));
+const ChapterDetailPage = lazy(() => import('../pages/ChapterDetailPage'));
 const SetInfoPage = lazy(() => import('../pages/SetInfoPage'));
 const SuccessPage = lazy(() => import('../pages/SuccessPage'));
 const UserPage = lazy(() => import('../pages/UserPage'));
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
                         path: 'study/:chapterId',
                         element: (
                             <LazyPage>
-                                <ChapterPage />
+                                <ChapterDetailPage />
                             </LazyPage>
                         ),
                     },
@@ -89,7 +89,7 @@ const router = createBrowserRouter([
                         path: 'study',
                         element: (
                             <LazyPage>
-                                <StudyPage />
+                                <ChapterListPage />
                             </LazyPage>
                         ),
                     },
@@ -118,7 +118,7 @@ const router = createBrowserRouter([
                         path: 'lesson',
                         element: (
                             <LazyPage>
-                                <LessonPage />
+                                <ProblemPage />
                             </LazyPage>
                         ),
                     },

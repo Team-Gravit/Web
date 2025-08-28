@@ -4,7 +4,7 @@ import TimerIcon from '@/assets/icons/timer.svg?react';
 import ClipBoardIcon from '@/assets/icons/clipboard.svg?react';
 import LessonQuitModal from '../components/modal/LessonQuitModal';
 
-function LessonPage() {
+function ProblemPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     function handleOnClose() {
@@ -87,4 +87,4 @@ function LessonPage() {
     );
 }
 
-export default LessonPage;
+export default ProblemPage;

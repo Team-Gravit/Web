@@ -4,7 +4,7 @@ import ChapterCard from '../components/study-page/ChapterCard';
 import fetchChapters from '../api/fetchChapters';
 import { Link } from 'react-router-dom';
 
-function StudyPage() {
+function ChapterListPage() {
     const { data, isPending, isError, error } = useQuery({
         queryKey: ['learning'],
         queryFn: fetchChapters,
@@ -36,4 +36,4 @@ function StudyPage() {
     );
 }
 
-export default StudyPage;
+export default ChapterListPage;
