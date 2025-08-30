@@ -1,5 +1,4 @@
 import Banner from '../components/@common/banner/Banner';
-
 import { Link } from 'react-router-dom';
 import Rocket from '@/assets/images/rocket.png';
 import Fire from '@/assets/images/fire.png';
